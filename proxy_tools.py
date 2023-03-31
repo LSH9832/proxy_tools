@@ -14,7 +14,7 @@ class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
 
-        if not platform.system().lower() == "windowsf":
+        if not platform.system().lower() == "windows":
             QtWidgets.QMessageBox.warning(self, "Warning",
                                           "本工具暂时仅支持Windows系统！",
                                           QtWidgets.QMessageBox.Close)
