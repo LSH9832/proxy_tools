@@ -59,13 +59,23 @@ def get_now_proxy():
 def add_rule(ip_from, port_from, port_to):
     command = f"netsh interface portproxy add v4tov4 " \
               f"listenport={port_to} listenaddress=0.0.0.0 connectport={port_from} connectaddress={ip_from}"
-    os.popen(f"netsh advfirewall firewall add rule name=PROXY_TOOLS_{port_to} dir=in action=allow protocol=TCP localport={port_to}")
+
     os.popen(command)
+
+    os.popen(
+        f"netsh advfirewall firewall add rule "
+        f"name=PROXY_TOOLS_{port_to} "
+        f"dir=in "
+        f"action=allow "
+        f"protocol=TCP "
+        f"localport={port_to}"
+    )
 
 
 def remove_rule(port_to):
     command = f"netsh interface portproxy delete v4tov4 listenaddress=0.0.0.0 listenport={port_to}"
     os.popen(command)
+    os.popen(f"netsh advfirewall firewall delete rule name=PROXY_TOOLS_{port_to}")
 
 
 if __name__ == '__main__':
